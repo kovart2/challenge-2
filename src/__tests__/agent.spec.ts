@@ -75,7 +75,7 @@ describe('aave oracle deviation agent', () => {
           .mockResolvedValue(big(10))
       };
 
-      const handleTransaction = provideHandleTransaction(aaveUtilsMock as any, 700, 10);
+      const handleTransaction = provideHandleTransaction(aaveUtilsMock as any, 4000, 10);
 
       let findings = null;
 
@@ -83,7 +83,7 @@ describe('aave oracle deviation agent', () => {
 
       expect(findings).toStrictEqual([]);
 
-      await wait(200);
+      await wait(300);
 
       findings = await handleTransaction(basicTxEvent);
 

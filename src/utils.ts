@@ -97,26 +97,22 @@ export class AaveUtils {
     return this.oracleAddress;
   }
 
-  private setOracleAddress(newAddress: string): ethers.Contract {
+  private setOracleAddress(newAddress: string) {
     this.oracleAddress = newAddress;
     this.oracleContract = new ethers.Contract(newAddress, AaveOracle.abi, this.jsonRpcProvider);
-
-    return this.oracleContract;
   }
 
   public getFallbackOracleAddress(): string {
     return this.fallbackOracleAddress;
   }
 
-  private setFallbackOracleAddress(newAddress: string): ethers.Contract {
+  private setFallbackOracleAddress(newAddress: string) {
     this.fallbackOracleAddress = newAddress;
     this.fallbackOracleContract = new ethers.Contract(
       newAddress,
       IPriceOracleGetter.abi,
       this.jsonRpcProvider
     );
-
-    return this.fallbackOracleContract;
   }
 }
 

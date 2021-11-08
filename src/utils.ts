@@ -84,35 +84,39 @@ export class AaveUtils {
   }
 
   public async getOracleAssetPrice(assetAddress: string): Promise<BigNumber> {
-    const price = (await this.oracleContract.getAssetPrice(assetAddress)).toString();
-    return new BigNumber(price);
+    const price = await this.oracleContract.getAssetPrice(assetAddress);
+    return new BigNumber(price.toString());
   }
 
   public async getFallbackOracleAssetPrice(assetAddress: string): Promise<BigNumber> {
-    const price = (await this.fallbackOracleContract.getAssetPrice(assetAddress)).toString();
-    return new BigNumber(price);
+    const price = await this.fallbackOracleContract.getAssetPrice(assetAddress);
+    return new BigNumber(price.toString());
   }
 
-  public getOracleAddress(): string {
+  public getOracleAddress() {
     return this.oracleAddress;
   }
 
-  private setOracleAddress(newAddress: string) {
+  private setOracleAddress(newAddress: string): ethers.Contract {
     this.oracleAddress = newAddress;
     this.oracleContract = new ethers.Contract(newAddress, AaveOracle.abi, this.jsonRpcProvider);
+
+    return this.oracleContract;
   }
 
-  public getFallbackOracleAddress(): string {
+  public getFallbackOracleAddress() {
     return this.fallbackOracleAddress;
   }
 
-  private setFallbackOracleAddress(newAddress: string) {
+  private setFallbackOracleAddress(newAddress: string): ethers.Contract {
     this.fallbackOracleAddress = newAddress;
     this.fallbackOracleContract = new ethers.Contract(
       newAddress,
       IPriceOracleGetter.abi,
       this.jsonRpcProvider
     );
+
+    return this.fallbackOracleContract;
   }
 }
 

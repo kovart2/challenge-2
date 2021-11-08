@@ -23,7 +23,8 @@ function provideHandleTransaction(
     const now = Number(new Date());
     const findings: Finding[] = [];
 
-    // update contract addresses if update events are found in the logs
+    // this methods allows us to minimize contract calls,
+    // it updates contract addresses if update events are found in the logs
     await aaveUtils.handleTransaction(txEvent);
 
     // check if it's too early to check the prices

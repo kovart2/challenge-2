@@ -8,15 +8,13 @@ const { provideHandleTransaction, createFinding } = agent;
 describe('aave oracle deviation agent', () => {
   describe('handleTransaction', () => {
     const basicTxEvent = new TestTransactionEvent();
-    const UsdtToken: TokenConfig = {
+    const usdtToken: TokenConfig = {
       symbol: 'USDT',
-      address: createAddress('0x1234'),
-      decimals: 12
+      address: createAddress('0x1234')
     };
-    const AaveToken: TokenConfig = {
+    const aaveToken: TokenConfig = {
       symbol: 'Aave',
-      address: createAddress('0x2345'),
-      decimals: 18
+      address: createAddress('0x2345')
     };
 
     const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
@@ -24,7 +22,7 @@ describe('aave oracle deviation agent', () => {
 
     it('returns empty findings if oracle price is zero', async () => {
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest
           .fn()
@@ -51,7 +49,7 @@ describe('aave oracle deviation agent', () => {
 
     it('returns empty findings if oracle prices are equal', async () => {
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest.fn().mockResolvedValue(big(100)),
         getFallbackOracleAssetPrice: jest.fn().mockResolvedValue(big(100))
@@ -66,7 +64,7 @@ describe('aave oracle deviation agent', () => {
 
     it("returns empty findings if it's too early to check", async () => {
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest.fn().mockResolvedValueOnce(big(10)).mockResolvedValue(big(20)),
         getFallbackOracleAssetPrice: jest
@@ -92,7 +90,7 @@ describe('aave oracle deviation agent', () => {
 
     it('returns empty findings if threshold is greater', async () => {
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest.fn().mockResolvedValue(big(10)),
         getFallbackOracleAssetPrice: jest.fn().mockResolvedValue(big(20))
@@ -107,7 +105,7 @@ describe('aave oracle deviation agent', () => {
 
     it('returns empty findings if threshold is equal', async () => {
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest.fn().mockResolvedValue(big(10)),
         getFallbackOracleAssetPrice: jest.fn().mockResolvedValue(big(20))
@@ -129,7 +127,7 @@ describe('aave oracle deviation agent', () => {
       };
 
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest.fn().mockResolvedValue(params.oracleAssetPrice),
         getFallbackOracleAssetPrice: jest.fn().mockResolvedValue(params.fallbackOracleAssetPrice),
@@ -142,7 +140,7 @@ describe('aave oracle deviation agent', () => {
       const findings = await handleTransaction(basicTxEvent);
 
       const finding = createFinding(
-        UsdtToken,
+        usdtToken,
         '100',
         params.oracleAssetPrice.toString(),
         params.fallbackOracleAssetPrice.toString(),
@@ -164,7 +162,7 @@ describe('aave oracle deviation agent', () => {
       };
 
       const aaveUtilsMock = {
-        tokens: [UsdtToken, AaveToken],
+        tokens: [usdtToken, aaveToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest
           .fn()
@@ -183,7 +181,7 @@ describe('aave oracle deviation agent', () => {
       const findings = await handleTransaction(basicTxEvent);
 
       const finding1 = createFinding(
-        UsdtToken,
+        usdtToken,
         '100',
         params.oracleAsset1Price.toString(),
         params.fallbackOracleAsset1Price.toString(),
@@ -192,7 +190,7 @@ describe('aave oracle deviation agent', () => {
       );
 
       const finding2 = createFinding(
-        AaveToken,
+        aaveToken,
         '50',
         params.oracleAsset2Price.toString(),
         params.fallbackOracleAsset2Price.toString(),
@@ -214,7 +212,7 @@ describe('aave oracle deviation agent', () => {
       const checkInterval = 500; // 500ms
 
       const aaveUtilsMock = {
-        tokens: [UsdtToken],
+        tokens: [usdtToken],
         handleTransaction: jest.fn(),
         getOracleAssetPrice: jest
           .fn()
@@ -241,7 +239,7 @@ describe('aave oracle deviation agent', () => {
       findings = await handleTransaction(basicTxEvent);
 
       const finding = createFinding(
-        UsdtToken,
+        usdtToken,
         '100',
         params.oracleAssetPrice.toString(),
         params.fallbackOracleAssetPrice.toString(),

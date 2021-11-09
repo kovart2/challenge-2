@@ -15,7 +15,6 @@ import {
 export type TokenConfig = {
   symbol: string;
   address: string;
-  decimals: number;
 };
 
 export class AaveUtils {
@@ -50,7 +49,6 @@ export class AaveUtils {
 
     for (const config of tokenConfigs) {
       this.tokens.push({
-        decimals: config.decimals,
         address: config.address,
         symbol: config.symbol
       });

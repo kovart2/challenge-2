@@ -17,8 +17,8 @@ Deviation = ABS((FallbackOraclePrice - OraclePrice) / OraclePrice) * 100%
 
 ##### CHECK_INTERVAL: `number`
 
-- Time interval, after which we can check the prices deviation
-- Default `900000` ms (15 minutes)
+- Time interval, indicates how often the agent needs to check
+- Default `900000` ms (every 15 minutes)
 
 ##### DEVIATION_THRESHOLD: `number`
 
@@ -34,7 +34,7 @@ Deviation = ABS((FallbackOraclePrice - OraclePrice) / OraclePrice) * 100%
 - AAVE-PRICE-DEVIATION-0
   - Fired if Fallback Oracle returns a price that deviates more than **10%** from last price delivered by Price Oracle
   - Severity is always set to "high"
-  - Severity is always set to "suspicious"
+  - Type is always set to "suspicious"
   - Metadata
     - `tokenSymbol` the asset symbol (e.g. USDT, DAI, Aave etc)
     - `tokenAddress` the asset address
